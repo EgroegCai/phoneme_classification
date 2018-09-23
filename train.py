@@ -60,18 +60,16 @@ net = classifier(input_size, output_size, hidden_layers)
 if cuda:
     net = net.cuda()
 print(net)
-if args.load:
-    load_path = 'model_beta=0.999_lr=0.001/model_5_125000.pt'
-    net.load_state_dict(torch.load(load_path))
-    print('model loaded successfully.')
-
 
 # Testing on using multiple GPUs
-if torch.cuda.device_count() > 1:
-    net = nn.DataParallel(net)
-    net.to(device)
-    print('Using {} GPUs'.format(torch.cuda.device_count()))
+net = nn.DataParallel(net)
+net.to(device)
+print('Using {} GPUs'.format(torch.cuda.device_count()))
 
+if args.load:
+    load_path = 'model_beta=0.999_lr=0.001/model_9_0.pt'
+    net.load_state_dict(torch.load(load_path))
+    print('model loaded successfully.')
 
 lr = args.lr
 betas = (0.5, 0.999)
@@ -88,7 +86,7 @@ batch_size = 64
 #     betas, lr))
 # f.flush()
 for epoch in range(epochs):
-    epoch += 4
+    epoch += 8
     print('Epoch {}'.format(epoch+1))
     running_loss = 0.0
     tot_match = 0
@@ -157,6 +155,7 @@ for epoch in range(epochs):
             # f.flush()
 
         if i % 5000 == 0:
+            scheduler.step()
             torch.save(net.state_dict(), os.path.join(path, 'model_{}_{}.pt'.format(epoch+1, i)))
     
 
