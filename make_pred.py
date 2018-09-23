@@ -31,12 +31,17 @@ input_size = freq_size * (1 + num_environ * 2)
 output_size = 138
 hidden_layers = [2048, 2048, 1024, 1024, 1024, 512]
 
-model_path = 'model_beta=0.999_lr=0.001/model_5_125000.pt'
+model_path = 'model_beta=0.999_lr=0.001/model_5_135000.pt'
 
 net = classifier(input_size, output_size, hidden_layers)
 
 if cuda:
     net = net.cuda()
+    
+if torch.cuda.device_count() > 0:
+    device = torch.device('cuda:0')
+    net = nn.DataParallel(net)
+    net.to(device)
 net.load_state_dict(torch.load(model_path))
 
 
