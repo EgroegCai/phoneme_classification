@@ -31,7 +31,7 @@ input_size = freq_size * (1 + num_environ * 2)
 output_size = 138
 hidden_layers = [2048, 2048, 1024, 1024, 1024, 512]
 
-model_path = 'model_beta=0.999_lr=0.001/model_5_135000.pt'
+model_path = 'model_beta=0.999_lr=0.001/model_6_165000.pt'
 
 net = classifier(input_size, output_size, hidden_layers)
 
