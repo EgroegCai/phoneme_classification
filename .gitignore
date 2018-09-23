@@ -2,3 +2,10 @@ all/
 
 __pycache__/
 
+# ignore all subfolders
+*/
+
+# include all python files
+!.py
+
+
