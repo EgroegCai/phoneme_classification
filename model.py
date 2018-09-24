@@ -8,6 +8,7 @@ class classifier(nn.Module):
 
         nn_layers = []
         nn_layers.append(nn.Linear(input_size, hidden_layers[0]))
+        # nn_layers.append(nn.Dropout())
         nn_layers.append(nn.BatchNorm1d(hidden_layers[0]))
         nn_layers.append(nn.ReLU())            
         
@@ -16,6 +17,7 @@ class classifier(nn.Module):
                 # self.f = nn.Linear(hidden_layers[i],hidden_layers[i+1])
                 # nn.init.xavier_uniform_(self.f.weight.data, 1.)
                 nn_layers.append(nn.Linear(hidden_layers[i],hidden_layers[i+1]))
+                # nn_layers.append(nn.Dropout())
                 nn_layers.append(nn.BatchNorm1d(hidden_layers[i+1]))
                 nn_layers.append(nn.ReLU())
             else:
